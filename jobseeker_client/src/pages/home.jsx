@@ -111,9 +111,9 @@ function Home() {
             {
                 result.length>0?(
                     <div className='flex justify-center mt-4 space-x-8 mb-4'>
-                        <button onClick={prevPage}>Previous</button>
-                        <button >Page {currentPage} of {Math.ceil(filterItems.length/itemsPerPage)}</button>
-                        <button onClick={nextPage}>Next</button>
+                        <button onClick={prevPage} disabled={currentPage===1} className='hover:underline cursor-pointer'>Previous</button>
+                        <span className='mx-2'>Page {currentPage} of {Math.ceil(filterItems.length/itemsPerPage)}</span>
+                        <button onClick={nextPage} disabled={currentPage===Math.ceil(filterItems.length/itemsPerPage-1)} className='hover:underline'>Next</button>
 
                     </div>
                 ):""
