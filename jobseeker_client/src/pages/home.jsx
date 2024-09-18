@@ -72,7 +72,10 @@ function Home() {
         }
         //categories filtering
         if(selected){
-            filterJobs=filterJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType,PostingDate})=>(
+            filterJobs=filterJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType,PostingDate})=>
+                PostingDate >=selected
+                
+                (
                 jobLocation.toLowerCase()===selected.toLowerCase() || parseInt(maxPrice)<= parseInt(selected) ||
                 salaryType.toLowerCase()===selected.toLowerCase() ||
                 employmentType.toLowerCase()===selected.toLowerCase()
@@ -113,7 +116,7 @@ function Home() {
                     <div className='flex justify-center mt-4 space-x-8 mb-4'>
                         <button onClick={prevPage} disabled={currentPage===1} className='hover:underline cursor-pointer'>Previous</button>
                         <span className='mx-2'>Page {currentPage} of {Math.ceil(filterItems.length/itemsPerPage)}</span>
-                        <button onClick={nextPage} disabled={currentPage===Math.ceil(filterItems.length/itemsPerPage-1)} className='hover:underline'>Next</button>
+                        <button onClick={nextPage} disabled={currentPage===Math.ceil(filterItems.length/itemsPerPage)} className='hover:underline'>Next</button>
 
                     </div>
                 ):""
