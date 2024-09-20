@@ -166,6 +166,20 @@
       "experienceLevel": "Intership",
       "employmentType": "Temporary",
       "description": "Mollit in laborum tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem incididunt."
+    },
+    {
+      "id": 6,
+      "companyName": "Trainline group",
+      "jobTitle": "DevOps Engineer",
+      "companyLogo": "/images/Trainline.png",
+      "minPrice": "80",
+      "maxPrice": "120",
+      "salaryType": "Yearly",
+      "jobLocation": "Boston",
+      "postingDate": "2022-10-05",
+      "experienceLevel": "Intership",
+      "employmentType": "Part-time",
+      "description": "Mollit in laborum tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem incididunt."
     }
   ]
   

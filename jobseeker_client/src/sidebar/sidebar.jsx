@@ -3,6 +3,7 @@ import Location from './location.jsx'
 import Salary from './salary.jsx'
 import WorkExpirence from './workExpirence.jsx'
 import JobPostingDate from './jobPostingDate.jsx'
+import EmployementType from './employementType.jsx'
 function Sidebar({handleChange,handleClick}) {
     return (
         <div className='space-y-5'>
@@ -11,6 +12,7 @@ function Sidebar({handleChange,handleClick}) {
             <Salary handleChange={handleChange} handleClick={handleClick} />
             <JobPostingDate handleChange={handleChange}/>
             <WorkExpirence handleChange={handleChange}/>
+            <EmployementType handleChange={handleChange}/>
         </div>
     )
 }
