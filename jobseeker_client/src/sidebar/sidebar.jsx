@@ -1,6 +1,7 @@
 import React from 'react'
 import Location from './location.jsx'
 import Salary from './salary.jsx'
+import WorkExpirence from './workExpirence.jsx'
 import JobPostingDate from './jobPostingDate.jsx'
 function Sidebar({handleChange,handleClick}) {
     return (
@@ -9,6 +10,7 @@ function Sidebar({handleChange,handleClick}) {
             <Location handleChange={handleChange}/>
             <Salary handleChange={handleChange} handleClick={handleClick} />
             <JobPostingDate handleChange={handleChange}/>
+            <WorkExpirence handleChange={handleChange}/>
         </div>
     )
 }

@@ -72,16 +72,18 @@ function Home() {
         }
         //categories filtering
         if(selected){
-            filterJobs=filterJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType,PostingDate})=>
-                PostingDate >=selected
+            filterJobs=filterJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType,postingDate})=>
+                
                 
                 (
                 jobLocation.toLowerCase()===selected.toLowerCase() || parseInt(maxPrice)<= parseInt(selected) ||
                 salaryType.toLowerCase()===selected.toLowerCase() ||
-                employmentType.toLowerCase()===selected.toLowerCase()
+                employmentType.toLowerCase()===selected.toLowerCase() ||
+                experienceLevel.toLowerCase()===selected.toLowerCase() ||
+                postingDate >=selected
 
             ))
-            console.log(filterJobs)
+            //console.log(filterJobs)
         }
 
 
