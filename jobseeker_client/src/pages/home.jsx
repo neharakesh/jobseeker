@@ -4,6 +4,8 @@ import Banner from '../components/banner'
 import { useState } from 'react';
 import Cards from '../components/cards.jsx';
 import Sidebar from '../sidebar/sidebar.jsx';
+import NewsLetter from '../components/newsLetter.jsx';
+
 
 function Home() {
     const[selectedCategories,setSelectedCategories]=useState(null)
@@ -125,7 +127,7 @@ function Home() {
             }
                 
             </div>
-        <div className='bg-white p-4 rounded '>right</div>
+        <div className='bg-white p-4 rounded '><NewsLetter/></div>
         </div>
         </div>
             
