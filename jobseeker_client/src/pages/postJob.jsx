@@ -12,10 +12,25 @@ const postJob = () => {
         formState: { errors },
       } = useForm()
     
-      const onSubmit = (data) => {
-        data.skills=selectedOption
-        console.log(data)
-      }
+     const onSubmit = (data) => {
+    data.skills = selectedOption || []; // Make sure selectedOption is assigned correctly
+/*
+    fetch("http://localhost:3000/post-job", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'  // Correct capitalization of Content-Type
+        }
+    })
+    .then((res) => res.json())  // Remove the extra semicolon here
+    .then((result) => {
+        console.log(result)
+    })
+    .catch((error) => {
+        console.error("Error submitting the job:", error);
+    });*/
+};
+
     const options=[
         {value:"javaScript",label:"javascript"},
         {value:"C++",label:"C++"},
