@@ -14,7 +14,7 @@ const postJob = () => {
     
      const onSubmit = (data) => {
     data.skills = selectedOption || []; // Make sure selectedOption is assigned correctly
-/*
+
     fetch("http://localhost:3000/post-job", {
         method: "POST",
         body: JSON.stringify(data),
@@ -28,7 +28,7 @@ const postJob = () => {
     })
     .catch((error) => {
         console.error("Error submitting the job:", error);
-    });*/
+    });
 };
 
     const options=[
