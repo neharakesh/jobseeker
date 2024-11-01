@@ -1,54 +1,82 @@
-import express from "express"
-import cookieParser from "cookie-parser"
-import cors from "cors"
-import dotenv from 'dotenv'
-import { MongoClient, ServerApiVersion }from 'mongodb'
-dotenv.config({});
-const app=express();
-const PORT=process.env.PORT || 3000
+import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import dotenv from 'dotenv';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
-//middleware
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// CORS options
+const corsOptions = {
+    origin: 'http://localhost:5713',
+    credentials: true
+};
+app.use(cors(corsOptions));
+
+// Middleware
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
-app.use(cookieParser())
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-//mongoDb connection
-
-
-
+// MongoDB connection
 const uri = process.env.MONGODB_URI;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
 });
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+async function connectDB() {
+    try {
+        // Connect the client to the server
+        await client.connect();
+
+        // Create database and collection references
+        const db = client.db("mernjobseeker");
+        const jobCollections = db.collection("demoJobs");
+
+        // Define routes
+        app.get("/", async (req, res) => {
+            res.send("Hi!");
+        });
+
+        // Get all jobs
+        app.get("/all-jobs", async (req, res) => {
+            const jobs = await jobCollections.find().toArray();
+            res.send(jobs);
+        });
+
+        // Post a job
+        app.post("/post-job", async (req, res) => {
+            const body = req.body;
+            body.createAt = new Date();
+            console.log(body);
+            const result = await jobCollections.insertOne(body);
+            if (result.insertedId) {
+                res.status(200).send(result);
+            } else {
+                res.status(404).send({
+                    message: "Cannot insert. Try Again.",
+                    status: false
+                });
+            }
+        });
+
+        console.log("Connected to MongoDB successfully.");
+    } catch (error) {
+        console.error("Failed to connect to MongoDB:", error);
+    }
 }
-run().catch(console.dir);
 
+connectDB();
 
-const corsOptions={
-    origin:'http//localhost:5713',
-    credentials:true
-}
-app.use(cors(corsOptions))
-
-
-app.listen(PORT,()=>{
-    console.log(`server running at port ${PORT}`)
-})
+app.listen(PORT, () => {
+    console.log(`Server running at port ${PORT}`);
+});
