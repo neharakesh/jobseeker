@@ -16,7 +16,7 @@ function Home() {
 
     useEffect(()=>{
         setIsLoading(true);
-        fetch("jobs.json").then(res=>res.json()).then(data=>{//console.log(data)
+        fetch("http://localhost:8000/all-jobs").then(res=>res.json()).then((data)=>{//console.log(data)
             setJobs(data)
             setIsLoading(false)
         })
@@ -29,7 +29,8 @@ function Home() {
     
 
     //filter jobs by title
-    const filterItems=jobs.filter((job)=>job.jobTitle.toLowerCase().indexOf(query.toLowerCase())!==-1)
+    const filterItems = jobs.filter((job) => job.jobTitle?.toLowerCase().includes(query.toLowerCase()));
+
     //console.log(filterItems)
 
     //radio filtering

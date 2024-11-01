@@ -25,6 +25,10 @@ const PostJob = () => {
         .then((res) => res.json())
         .then((result) => {
             console.log(result);
+            if(result.acknowledged===true){
+                alert("Job posted sucessfully")
+            }
+            reset()
         })
         .catch((error) => {
             console.error("Error submitting the job:", error);
