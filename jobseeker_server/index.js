@@ -53,10 +53,11 @@ async function connectDB() {
             res.send(jobs);
         });
 
-        //fetch job by email
-        app.get("/my-jobs/email",async(req,res)=>{
+        //get job by email
+        app.get("/my-jobs/:email",async(req,res)=>{
+          //const jobs=await jobCollections.find({})
           console.log(req.params.email)
-          res.send(jobs)
+          //res.send(jobs)
         })
         console.log("neha")
 
