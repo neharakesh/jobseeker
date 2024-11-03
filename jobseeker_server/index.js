@@ -55,9 +55,10 @@ async function connectDB() {
 
         //get job by email
         app.get("/my-jobs/:email",async(req,res)=>{
-          //const jobs=await jobCollections.find({})
-          console.log(req.params.email)
-          //res.send(jobs)
+          const jobs=await jobCollections.find({postedBy:req.params.email}).toArray()
+
+          //console.log(req.params.email)
+          res.send(jobs)
         })
         console.log("neha")
 

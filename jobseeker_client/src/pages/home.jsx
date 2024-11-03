@@ -29,7 +29,9 @@ function Home() {
     
 
     //filter jobs by title
-    const filterItems = jobs.filter((job) => job.jobTitle?.toLowerCase().includes(query.toLowerCase()));
+    const filterItems = jobs.filter(
+        (job) => job.jobTitle?.toLowerCase().includes(query.toLowerCase())
+    );
 
     //console.log(filterItems)
 
