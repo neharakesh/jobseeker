@@ -2,7 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from 'dotenv';
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import { MongoClient, ObjectId, ServerApiVersion } from 'mongodb';
 
 dotenv.config();
 
@@ -62,6 +62,18 @@ async function connectDB() {
         })
         console.log("neha")
 
+
+
+        //delete a job
+        app.delete("/job/:id",async(req,res)=>{
+          const id=req.params.id;
+          const filter={_id:new ObjectId(id)}
+          const result=await jobCollections.deleteOne(filter)
+          res.send(result)
+        })
+
+
+        
         // Post a job
         app.post("/post-job", async (req, res) => {
             const body = req.body;

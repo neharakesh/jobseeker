@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const myjobs = () => {
   const email="neharajpoot2@gmail.com"
@@ -11,6 +12,7 @@ const myjobs = () => {
     setIsLoading(true)
     fetch(`http://localhost:8000/my-jobs/neharajpoot233@gmail.com`).then(res=>res.json()).then(data=>{
       setJobs(data)
+      setIsLoading(false)
   })
   },[])
 
@@ -19,6 +21,24 @@ const myjobs = () => {
     setJobs(filter)
     setIsLoading(false)
   }
+  const handleDelete = (id) => {
+    //console.log(id);
+    fetch(`http://localhost:8000/job/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged === true) {
+          alert("Job Deleted Successfully");
+          // Optional: update the jobs list after deletion
+          setJobs((prevJobs) => prevJobs.filter((job) => job._id !== id));
+        } else {
+          alert("Error in deletion");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+};
+
   
   return (
     <>
@@ -36,132 +56,88 @@ const myjobs = () => {
 
     {/** Table */}
     <div
-  class="relative flex flex-col md:w-8/12 mb-10 h-full overflow-scroll text-gray-700 bg-white shadow-md bg-clip-border rounded-xl md:ml-60">
-  <table class="w-full text-left table-auto min-w-max">
+  className="relative flex flex-col md:w-8/12 mb-10 h-full overflow-scroll text-gray-700 bg-white shadow-md bg-clip-border rounded-xl md:ml-60">
+  <table className="w-full text-left table-auto min-w-max">
     <thead>
       <tr>
-        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 ">
-          <p class="block font-sans text-sm antialiased  leading-none text-blue-gray-900 opacity-70 font-bold">
+      <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50 ">
+          <p className="block font-sans text-sm antialiased  leading-none text-blue-gray-900 opacity-70 font-bold">
+            NO.
+          </p>
+        </th>
+        <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50 ">
+          <p className="block font-sans text-sm antialiased  leading-none text-blue-gray-900 opacity-70 font-bold">
             Company Name
           </p>
         </th>
-        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 ">
-          <p class="block font-sans text-sm antialiased font-bold leading-none text-blue-gray-900 opacity-70">
+        <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50 ">
+          <p className="block font-sans text-sm antialiased font-bold leading-none text-blue-gray-900 opacity-70">
             Title
           </p>
         </th>
-        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 ">
-          <p class="block font-sans text-sm antialiased font-bold leading-none text-blue-gray-900 opacity-70">
+        <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50 ">
+          <p className="block font-sans text-sm antialiased font-bold leading-none text-blue-gray-900 opacity-70">
             Salary
           </p>
         </th>
-        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-          <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"></p>
+        <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+          <p className="block font-sans text-sm antialiased font-bold leading-none text-blue-gray-900 opacity-70">
+            Edit
+          </p>
+        </th>
+        <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+          <p className="block font-sans text-sm antialiased font-bold leading-none text-blue-gray-900 opacity-70">
+            Delete
+          </p>
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr class="even:bg-blue-gray-50/50">
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            John Michael
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Manager
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            200000
-          </p>
-        </td>
-        <td class="p-4">
-          <a href="#" class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
-        </td>
-      </tr>
-      <tr class="even:bg-blue-gray-50/50">
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Alexa Liras
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Developer
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            23/04/18
-          </p>
-        </td>
-        <td class="p-4">
-          <a href="#" class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
-        </td>
-      </tr>
-      <tr class="even:bg-blue-gray-50/50">
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Laurent Perrier
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Executive
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            19/09/17
-          </p>
-        </td>
-        <td class="p-4">
-          <a href="#" class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
-        </td>
-      </tr>
-      <tr class="even:bg-blue-gray-50/50">
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Michael Levi
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Developer
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            24/12/08
-          </p>
-        </td>
-        <td class="p-4">
-          <a href="#" class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
-        </td>
-      </tr>
-      <tr class="even:bg-blue-gray-50/50">
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Richard Gran
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            Manager
-          </p>
-        </td>
-        <td class="p-4">
-          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            04/10/21
-          </p>
-        </td>
-        <td class="p-4">
-          <a href="#" class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
-        </td>
-      </tr>
-    </tbody>
+
+    {
+      isLoading ? (<div className='flex items-center justify-center h-20'>loading...</div>):(<tbody>
+        {
+          jobs.map((jobs,index)=>(
+            <tr key={index} 
+            className="even:bg-blue-gray-50/50">
+              <td className="p-4">
+            <p  className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+            {index+1}
+            </p>
+          </td>
+          <td className="p-4">
+            <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+              ${jobs.ComapnyName}
+            </p>
+          </td>
+          <td className="p-4">
+            <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+              Developer
+            </p>
+          </td>
+          <td className="p-4">
+            <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+              ${jobs.minPrice}-${jobs.maxPrice}
+            </p>
+          </td>
+          <td className="p-4">
+            <button>Edit</button>
+          </td>
+          <td className="p-4">
+          <button onClick={()=>handleDelete(jobs._id)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>
+          </td>
+        </tr>
+  
+        
+          ))
+        }
+        
+        
+       
+        
+      </tbody>)
+    }
+
+    
   </table>
 </div>
     </div>
