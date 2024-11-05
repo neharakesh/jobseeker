@@ -6,7 +6,8 @@ const myjobs = () => {
   const [jobs,setJobs]=useState([])
   const [searchText,setSearchText]=useState('')
   const [isLoading,setIsLoading]=useState(true)
-
+  const [currentPage,setCurrentPage]=useState(1)
+  const itemsPerPage=4;
 
   useEffect(()=>{
     setIsLoading(true)
@@ -14,7 +15,25 @@ const myjobs = () => {
       setJobs(data)
       setIsLoading(false)
   })
-  },[])
+  },[searchText])
+
+  //pagination
+  const indexOfLastItem=currentPage * itemsPerPage
+  const indexOfFirstItem=indexOfLastItem - itemsPerPage;
+  const currentJobs=jobs.slice(indexOfFirstItem,indexOfLastItem)
+
+  //next page button &previous page button
+  const nextPage=()=>{
+    if(indexOfLastItem<jobs.length){
+      setCurrentPage(currentPage+1)
+    }
+  }
+  const prevPage =()=>{
+    if(currentPage>1){
+      setCurrentPage(currentPage-1)
+    }
+  }
+
 
   const handleSearch=() =>{
     const filter =jobs.filter((job)=>job.Title.toLowerCase().indexOf(searchText.toLowerCase())!==-1)
@@ -140,6 +159,20 @@ const myjobs = () => {
     
   </table>
 </div>
+
+    {/**PAgination */}
+    <div className='flex justify-center text-black space-x-8'>
+        {
+          currentPage>1&&(
+            <button className='hover:underline ' onClick={prevPage}>Previous</button>
+          )
+        }
+        {
+          indexOfLastItem<jobs.length && (
+            <button onClick={nextPage} className='hover:underline'>Next</button>
+          )
+        }
+    </div>
     </div>
     </>
   )
