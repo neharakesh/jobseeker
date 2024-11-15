@@ -47,6 +47,18 @@ async function connectDB() {
             res.send("Hi!");
         });
 
+
+
+        //get a single job by id
+        app.get("/all-jobs/:id",async(req,res)=>{
+            const id=req.params.id;
+            const jobs=await jobCollections.findOne({
+                _id:new ObjectId(id)
+            })
+            res.send(jobs)
+        })
+
+
         // Get all jobs
         app.get("/all-jobs", async (req, res) => {
             const jobs = await jobCollections.find().toArray();

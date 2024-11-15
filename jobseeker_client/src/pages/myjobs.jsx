@@ -139,7 +139,7 @@ const myjobs = () => {
             </p>
           </td>
           <td className="p-4">
-            <button>Edit</button>
+            <button><Link to={`/edit-job/${jobs?._id}`}>Edit</Link></button>
           </td>
           <td className="p-4">
           <button onClick={()=>handleDelete(jobs._id)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>
