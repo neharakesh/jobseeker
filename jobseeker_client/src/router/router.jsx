@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import App from "../App";
 import Home from "../pages/home";
 import PostJob from "../pages/postJob";
+import Salary from "../pages/salary.jsx";
 import MyJobs from "../pages/myjobs.jsx"
 const router = createBrowserRouter([
     {
@@ -16,7 +17,10 @@ const router = createBrowserRouter([
       },
       {
         path:"/my-jobs",element:<MyJobs/>
-    }
+    },
+    {
+      path:"/salary",element:<Salary/>
+  }
       ]
     },
   ]);

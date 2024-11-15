@@ -161,9 +161,9 @@ const myjobs = () => {
 </div>
 
     {/**PAgination */}
-    <div className='flex justify-center text-black space-x-8'>
+    <div className='flex justify-center text-black space-x-8 bg-gray-950'>
         {
-          currentPage>1&&(
+          currentPage>1 &&(
             <button className='hover:underline ' onClick={prevPage}>Previous</button>
           )
         }
