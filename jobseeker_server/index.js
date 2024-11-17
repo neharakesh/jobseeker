@@ -84,6 +84,21 @@ async function connectDB() {
           res.send(result)
         })
 
+        //update a job
+        app.patch("/update-job/:id",async(req,res)=>{
+            const id=req.params.id;
+            const jobdata=req.body;
+            const filter={_id:new ObjectId(id)}
+            const options={upsert:true}
+            const updateDoc={
+                $set:{
+                    ...jobdata
+                },
+
+            };
+            const result=await jobCollections.updateOne(filter,updateDoc,options)
+            res.send(result)
+        })
 
         
         // Post a job

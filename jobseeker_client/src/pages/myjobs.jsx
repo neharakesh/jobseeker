@@ -125,12 +125,12 @@ const myjobs = () => {
           </td>
           <td className="p-4">
             <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-              ${jobs.ComapnyName}
+              ${jobs.CompanyName}
             </p>
           </td>
           <td className="p-4">
             <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-              Developer
+              ${jobs.JobTitle}
             </p>
           </td>
           <td className="p-4">
@@ -139,7 +139,7 @@ const myjobs = () => {
             </p>
           </td>
           <td className="p-4">
-            <button><Link to={`/edit-job/${jobs?._id}`}>Edit</Link></button>
+            <button><Link to={`/edit-job/${jobs._id}`}>Edit</Link></button>
           </td>
           <td className="p-4">
           <button onClick={()=>handleDelete(jobs._id)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>
