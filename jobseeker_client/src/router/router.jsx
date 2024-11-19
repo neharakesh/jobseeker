@@ -5,6 +5,7 @@ import PostJob from "../pages/postJob";
 import Salary from "../pages/salary.jsx";
 import MyJobs from "../pages/myjobs.jsx"
 import UpdateJob from "../pages/updatejob.jsx";
+import Login from "../components/login.jsx";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -28,5 +29,9 @@ const router = createBrowserRouter([
 }
       ]
     },
+    {
+      path:"/login", element:<Login/>
+
+    }
   ]);
   export default router;
