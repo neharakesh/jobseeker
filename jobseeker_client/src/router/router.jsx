@@ -7,6 +7,7 @@ import MyJobs from "../pages/myjobs.jsx"
 import UpdateJob from "../pages/updatejob.jsx";
 import Login from "../components/login.jsx";
 import Jobdetails from "../pages/jobdetails.jsx"
+import Signup from "../components/signup.jsx";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     },
     {
       path:"/login", element:<Login/>
+
+    },
+    {
+      path:"/signup", element:<Signup/>
 
     }
   ]);

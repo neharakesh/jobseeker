@@ -15,6 +15,8 @@ function Navbar() {
         {path:"/my-jobs",title:"My Jobs"},
         {path:"/salary",title:"Salary Estimate"},
         {path:"/post-Job",title:"Post a job"},
+        
+
     ]
     return (
         <header className='max-w-screen-2xl container mx-auto xl:px-24 px-4'>
