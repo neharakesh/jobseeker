@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
+import dotenv from "dotenv";
+dotenv.config();
 
 const PostJob = () => {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -15,13 +17,13 @@ const PostJob = () => {
     const onSubmit = (data) => {
         data.skills = selectedOption ? selectedOption.map(option => option.label) : []; // Only labels needed
 
-        fetch("http://localhost:8000/post-job", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json' // Capitalized correctly
-            }
-        })
+        fetch(`${process.env.REACT_APP_SERVER_URL}/post-job`, {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
         .then((res) => res.json())
         .then((result) => {
             console.log(result);

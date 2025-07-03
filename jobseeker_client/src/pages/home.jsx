@@ -4,6 +4,8 @@ import Banner from '../components/banner';
 import Cards from '../components/cards.jsx';
 import Sidebar from '../sidebar/sidebar.jsx';
 import NewsLetter from '../components/newsLetter.jsx';
+import dotenv from "dotenv";
+dotenv.config();
 
 function Home() {
     const [selectedCategories, setSelectedCategories] = useState(null);
@@ -15,7 +17,7 @@ function Home() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch("http://localhost:8000/all-jobs")
+        fetch(`${process.env.REACT_APP_SERVER_URL}/all-jobs`)
             .then(res => res.json())
             .then(data => {
                 setJobs(data);

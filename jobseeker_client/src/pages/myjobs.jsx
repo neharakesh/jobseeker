@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import dotenv from "dotenv";
+dotenv.config();
 
 const myjobs = () => {
   const email="neharajpoot2@gmail.com"
@@ -11,7 +13,7 @@ const myjobs = () => {
 
   useEffect(()=>{
     setIsLoading(true)
-    fetch(`http://localhost:8000/my-jobs/neharajpoot233@gmail.com`).then(res=>res.json()).then(data=>{
+    fetch(`${process.env.REACT_APP_SERVER_URL}/my-jobs/neharajpoot233@gmail.com`).then(res=>res.json()).then(data=>{
       setJobs(data)
       setIsLoading(false)
   })

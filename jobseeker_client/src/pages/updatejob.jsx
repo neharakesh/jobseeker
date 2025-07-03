@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { useLoaderData, useParams } from 'react-router-dom'
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const updatejob = () => {
 
@@ -18,7 +21,7 @@ const updatejob = () => {
     const onSubmit = (data) => {
         data.skills = selectedOption ? selectedOption.map(option => option.label) : []; // Only labels needed
 
-        fetch(`http://localhost:8000/update-job/${id}`, {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/update-job/${id}`, {
             method: "PATCH",
             body: JSON.stringify(data),
             headers: {
