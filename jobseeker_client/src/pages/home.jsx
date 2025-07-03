@@ -4,8 +4,7 @@ import Banner from '../components/banner';
 import Cards from '../components/cards.jsx';
 import Sidebar from '../sidebar/sidebar.jsx';
 import NewsLetter from '../components/newsLetter.jsx';
-import dotenv from "dotenv";
-dotenv.config();
+
 
 function Home() {
     const [selectedCategories, setSelectedCategories] = useState(null);

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
-import dotenv from "dotenv";
-dotenv.config();
+
 
 const PostJob = () => {
     const [selectedOption, setSelectedOption] = useState(null);

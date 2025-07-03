@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import dotenv from "dotenv";
-dotenv.config();
+
 
 const JobDetails = () => {
   const { id } = useParams();

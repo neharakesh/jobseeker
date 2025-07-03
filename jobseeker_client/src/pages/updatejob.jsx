@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { useLoaderData, useParams } from 'react-router-dom'
-import dotenv from "dotenv";
-dotenv.config();
+
 
 
 const updatejob = () => {

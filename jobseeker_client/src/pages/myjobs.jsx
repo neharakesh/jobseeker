@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import dotenv from "dotenv";
-dotenv.config();
+
 
 const myjobs = () => {
   const email="neharajpoot2@gmail.com"
