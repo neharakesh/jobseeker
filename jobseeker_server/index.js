@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 // CORS 
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your frontend URL
+    origin: ['http://localhost:5173','https://jobseeker-frontend-git-master-assignment2.vercel.app'], // Replace with your frontend URL
     methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Allowed methods
     credentials: true, // Allow credentials if required
 }));
