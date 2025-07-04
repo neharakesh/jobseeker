@@ -16,7 +16,7 @@ function Home() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`${process.env.REACT_APP_SERVER_URL}/all-jobs`)
+        fetch(`${import.meta.env.Vite_SERVER_URL}/all-jobs`)
             .then(res => res.json())
             .then(data => {
                 setJobs(data);

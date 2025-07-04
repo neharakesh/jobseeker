@@ -20,7 +20,7 @@ const updatejob = () => {
     const onSubmit = (data) => {
         data.skills = selectedOption ? selectedOption.map(option => option.label) : []; // Only labels needed
 
-        fetch(`${process.env.REACT_APP_SERVER_URL}/update-job/${id}`, {
+        fetch(`${import.meta.env.Vite_SERVER_URL}/update-job/${id}`, {
             method: "PATCH",
             body: JSON.stringify(data),
             headers: {

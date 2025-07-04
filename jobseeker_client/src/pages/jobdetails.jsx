@@ -8,7 +8,7 @@ const JobDetails = () => {
   const [job, setJob] = useState({});
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/all-jobs/${id}`)
+    fetch(`${import.meta.env.Vite_SERVER_URL}/all-jobs/${id}`)
       .then((res) => res.json())
       .then((data) => setJob(data));
   }, [id]);

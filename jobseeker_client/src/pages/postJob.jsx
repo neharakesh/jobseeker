@@ -16,7 +16,7 @@ const PostJob = () => {
     const onSubmit = (data) => {
         data.skills = selectedOption ? selectedOption.map(option => option.label) : []; // Only labels needed
 
-        fetch(`${process.env.REACT_APP_SERVER_URL}/post-job`, {
+        fetch(`${import.meta.env.Vite_SERVER_URL}/post-job`, {
   method: "POST",
   body: JSON.stringify(data),
   headers: {
