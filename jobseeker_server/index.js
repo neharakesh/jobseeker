@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // CORS Configuration
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://jobseeker-murex.vercel.app'],
+    origin: ['http://localhost:5173', 'https://jobseeker-frontend-git-master-assignment2.vercel.app/'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
 }));
