@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   },
   {
     path:"/edit-job/:id",element:<UpdateJob/>,
-    loader:({params})=> fetch(`${import.meta.env.Vite_SERVER_URL}/all-jobs/${params.id}`)
+    loader:({params})=> fetch(`${import.meta.env.VITE_SERVER_URL}/all-jobs/${params.id}`)
 },
 {
   path:"/job/:id",element:<Jobdetails/>

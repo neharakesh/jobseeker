@@ -5,7 +5,6 @@ import Cards from '../components/cards.jsx';
 import Sidebar from '../sidebar/sidebar.jsx';
 import NewsLetter from '../components/newsLetter.jsx';
 
-
 function Home() {
     const [selectedCategories, setSelectedCategories] = useState(null);
     const [jobs, setJobs] = useState([]);
@@ -16,19 +15,33 @@ function Home() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`${import.meta.env.Vite_SERVER_URL}/all-jobs`)
-            .then(res => res.json())
-            .then(data => {
+
+        const fetchJobs = async () => {
+            try {
+                const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/all-jobs`, {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+                if (!res.ok) throw new Error("Failed to fetch jobs");
+                const data = await res.json();
                 setJobs(data);
+            } catch (error) {
+                console.error("Error fetching jobs:", error);
+            } finally {
                 setIsLoading(false);
-            });
+            }
+        };
+
+        fetchJobs();
     }, []);
 
     const handleInputChange = (event) => setQuery(event.target.value);
     const handleChange = (event) => setSelectedCategories(event.target.value);
     const handleClick = (event) => setSelectedCategories(event.target.value);
 
-    const filterItems = jobs.filter(job => job.jobTitle?.toLowerCase().includes(query.toLowerCase()));
+    const filterItems = jobs.filter(job =>
+        job.jobTitle?.toLowerCase().includes(query.toLowerCase())
+    );
 
     const calculatePageRange = () => {
         const startIndex = (currentPage - 1) * itemsPerPage;
@@ -52,17 +65,20 @@ function Home() {
         let filteredJobs = jobs;
 
         if (query) {
-            filteredJobs = filterItems;
+            filteredJobs = filteredJobs.filter(job =>
+                job.jobTitle?.toLowerCase().includes(query.toLowerCase())
+            );
         }
 
         if (selected) {
-            filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experienceLevel, salaryType, employmentType, postingDate }) =>
-                jobLocation.toLowerCase() === selected.toLowerCase() ||
-                parseInt(maxPrice) <= parseInt(selected) ||
-                salaryType.toLowerCase() === selected.toLowerCase() ||
-                employmentType.toLowerCase() === selected.toLowerCase() ||
-                experienceLevel.toLowerCase() === selected.toLowerCase() ||
-                postingDate >= selected
+            filteredJobs = filteredJobs.filter(
+                ({ jobLocation, maxPrice, experienceLevel, salaryType, employmentType, postingDate }) =>
+                    jobLocation?.toLowerCase() === selected.toLowerCase() ||
+                    parseInt(maxPrice) <= parseInt(selected) ||
+                    salaryType?.toLowerCase() === selected.toLowerCase() ||
+                    employmentType?.toLowerCase() === selected.toLowerCase() ||
+                    experienceLevel?.toLowerCase() === selected.toLowerCase() ||
+                    postingDate >= selected
             );
         }
 
@@ -77,12 +93,11 @@ function Home() {
     return (
         <div>
             <Banner query={query} handleInputChange={handleInputChange} />
-            
             <div className='bg-slate-100 flex flex-col md:grid md:grid-cols-4 gap-6 lg:px-24 py-12 px-4'>
                 <div className='bg-white p-4 rounded shadow-md'>
                     <Sidebar handleChange={handleChange} handleClick={handleClick} />
                 </div>
-                
+
                 <div className='col-span-2 bg-white p-4 rounded shadow-md'>
                     {isLoading ? (
                         <p className='font-medium'>Loading...</p>
@@ -90,7 +105,7 @@ function Home() {
                         <Jobs result={result} />
                     ) : (
                         <>
-                            <h3 className='text-lg font-bold mb-2'>{result.length} Jobs</h3>
+                            <h3 className='text-lg font-bold mb-2'>0 Jobs</h3>
                             <p>No Data Found</p>
                         </>
                     )}
@@ -107,7 +122,7 @@ function Home() {
                         </div>
                     )}
                 </div>
-                
+
                 <div className='bg-white p-4 rounded shadow-md'>
                     <NewsLetter />
                 </div>
@@ -117,4 +132,3 @@ function Home() {
 }
 
 export default Home;
-

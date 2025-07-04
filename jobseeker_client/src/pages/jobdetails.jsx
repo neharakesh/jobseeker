@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const JobDetails = () => {
   const { id } = useParams();
   const [job, setJob] = useState({});
 
   useEffect(() => {
-    fetch(`${import.meta.env.Vite_SERVER_URL}/all-jobs/${id}`)
+    fetch(`${import.meta.env.VITE_SERVER_URL}/all-jobs/${id}`)
       .then((res) => res.json())
-      .then((data) => setJob(data));
+      .then((data) => setJob(data))
+      .catch((err) => console.error("Failed to fetch job:", err));
   }, [id]);
 
   const handleApply = async () => {
@@ -28,14 +28,21 @@ const JobDetails = () => {
     <div className="container mx-auto max-w-screen-lg px-6 py-10">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-xl p-8 shadow-lg mb-10">
-        <h1 className="text-4xl font-bold mb-4 text-black">{job.JobTitle || "Loading..."}</h1>
-        <p className="text-xl mb-6 text-black">{job.CompanyName || "Company Name"}</p>
+        <h1 className="text-4xl font-bold mb-4 text-black">
+          {job.jobTitle || "Loading..."}
+        </h1>
+        <p className="text-xl mb-6 text-black">
+          {job.companyName || "Company Name"}
+        </p>
         <div className="flex flex-wrap items-center space-x-4">
           <span className="bg-white text-blue font-medium rounded-full px-4 py-2 text-sm shadow">
             {job.jobLocation || "Location Unavailable"}
           </span>
           <span className="bg-white text-blue font-medium rounded-full px-4 py-2 text-sm shadow">
-            Salary: {job.minPrice && job.maxPrice ? `${job.minPrice} - ${job.maxPrice}` : "Negotiable"}
+            Salary:{" "}
+            {job.minPrice && job.maxPrice
+              ? `${job.minPrice} - ${job.maxPrice}`
+              : "Negotiable"}
           </span>
         </div>
       </div>
@@ -53,17 +60,29 @@ const JobDetails = () => {
           {/* Key Responsibilities */}
           <h3 className="text-xl font-medium mb-2">Key Responsibilities:</h3>
           <ul className="list-disc list-inside space-y-2 text-gray-700">
-            {job.responsibilities
-              ? job.responsibilities.map((item, index) => <li key={index}>{item}</li>)
-              : ["Manage team projects effectively", "Collaborate with other teams", "Deliver high-quality solutions"]}
+            {job.responsibilities?.length > 0
+              ? job.responsibilities.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))
+              : [
+                  "Manage team projects effectively",
+                  "Collaborate with other teams",
+                  "Deliver high-quality solutions",
+                ].map((item, i) => <li key={i}>{item}</li>)}
           </ul>
 
           {/* Requirements */}
           <h3 className="text-xl font-medium mt-6 mb-2">Requirements:</h3>
           <ul className="list-disc list-inside space-y-2 text-gray-700">
-            {job.requirements
-              ? job.requirements.map((item, index) => <li key={index}>{item}</li>)
-              : ["Bachelor's degree in relevant field", "2+ years of experience", "Strong problem-solving skills"]}
+            {job.requirements?.length > 0
+              ? job.requirements.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))
+              : [
+                  "Bachelor's degree in relevant field",
+                  "2+ years of experience",
+                  "Strong problem-solving skills",
+                ].map((item, i) => <li key={i}>{item}</li>)}
           </ul>
         </div>
 
@@ -106,4 +125,3 @@ const JobDetails = () => {
 };
 
 export default JobDetails;
-
