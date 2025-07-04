@@ -6,7 +6,7 @@ function Banner({query,handleInputChange}) {
     return (
         <div className='max-w-screen-2xl container mx-auto xl:px-24 px-4 md:py-20 py-14 '>
             <h1 className='text-5xl font-bold text-primary mb-3'>Find your <span className='text-blue'>New job</span> today</h1>
-            <p className='text-lg text-black/70 mb-8'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima vero, nobis voluptate veniam facilis recusandae molestias incidunt voluptatum consequatur ratione, dicta dolorum rerum dolore officia vel, quam quibusdam corporis itaque.</p>
+            <p className='text-lg text-black/70 mb-8'>JobSeeker is an innovative job listing and application platform designed to connect employers and job seekers efficiently. Whether you're looking to hire top talent or find your next career opportunity, JobSeeker offers a streamlined, user-friendly interface for posting jobs, managing applications, and filtering roles based on location, salary, experience, and more. With real-time search, personalized dashboards, and skill-based recommendations, JobSeeker empowers users to make faster, smarter employment decisions.</p>
 
             <form>
                 <div className='flex justify-start md:flex-row flex-col md:gap-0 gap-4'>

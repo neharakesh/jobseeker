@@ -11,12 +11,12 @@ function Location({handleChange}) {
                     <input type="radio" name='test' id='test' value="" onChange={handleChange} />
                     <span className='checkmark'></span>All
                 </label>
-                <InputField handleChange={handleChange} value="london" title="london" name="test" />
+                <InputField handleChange={handleChange} value="Banglore" title="Banglore" name="test" />
 
-                <InputField handleChange={handleChange} value="madrid" title="madrid" name="test" />
+                <InputField handleChange={handleChange} value="Pune" title="Pune" name="test" />
 
-                <InputField handleChange={handleChange} value="seattle" title="seattle" name="test" />
-                <InputField handleChange={handleChange} value="bostan" title="bostan" name="test" />
+                <InputField handleChange={handleChange} value="Mumbai" title="Mumbai" name="test" />
+                <InputField handleChange={handleChange} value="Gurugram" title="Gurugram" name="test" />
             </div>
         </div>
     )

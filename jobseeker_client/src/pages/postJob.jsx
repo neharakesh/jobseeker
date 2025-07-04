@@ -65,11 +65,11 @@ const PostJob = () => {
                     <div className="create-job-flex">
                         <div className="lg:w-1/2 w-full">
                             <label className="block mb-2 text-lg">Minimum Price</label>
-                            <input type="text" placeholder="$20k" {...register("minPrice")} className="create-job-input" />
+                            <input type="text" placeholder="20k" {...register("minPrice")} className="create-job-input" />
                         </div>
                         <div className="lg:w-1/2 w-full">
                             <label className="block mb-2 text-lg">Maximum Price</label>
-                            <input type="text" placeholder="$80k" {...register("maxPrice")} className="create-job-input" />
+                            <input type="text" placeholder="80k" {...register("maxPrice")} className="create-job-input" />
                         </div>
                     </div>
 
@@ -86,7 +86,7 @@ const PostJob = () => {
                         </div>
                         <div className="lg:w-1/2 w-full">
                             <label className="block mb-2 text-lg">Job Location</label>
-                            <input type="text" placeholder="Seattle" {...register("jobLocation")} className="create-job-input" />
+                            <input type="text" placeholder="Banglore" {...register("jobLocation")} className="create-job-input" />
                         </div>
                     </div>
 
