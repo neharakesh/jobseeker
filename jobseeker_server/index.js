@@ -9,26 +9,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-
-
-// CORS 
-
+// CORS Configuration
 app.use(cors({
-    origin: ['http://localhost:5173','https://jobseeker-murex.vercel.app'], // Replace with your frontend URL
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Allowed methods
-    credentials: true, // Allow credentials if required
-}));
-/*
-const corsOptions = {
-    origin: 'http://localhost:5713',
+    origin: ['http://localhost:5173', 'https://jobseeker-murex.vercel.app'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-    credentials: true
-};
-app.use(cors(corsOptions));
-*/
-
-
+    credentials: true,
+}));
 
 // Middleware
 app.use(express.json());
@@ -38,7 +24,6 @@ app.use(cookieParser());
 // MongoDB connection
 const uri = process.env.MONGODB_URI;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -49,99 +34,77 @@ const client = new MongoClient(uri, {
 
 async function connectDB() {
     try {
-        // Connect the client to the server
         await client.connect();
-
-        // Create database and collection references
         const db = client.db("mernjobseeker");
         const jobCollections = db.collection("demoJobs");
 
-        // Define routes
-        app.get("/", async (req, res) => {
+        // Routes
+        app.get("/", (req, res) => {
             res.send({
-                activeStatus:true,
-                error:false
+                activeStatus: true,
+                error: false
             });
         });
 
-
-
-        //get a single job by id
-        app.get("/all-jobs/:id",async(req,res)=>{
-            const id=req.params.id;
-            const jobs=await jobCollections.findOne({
-                _id:new ObjectId(id)
-            })
-            res.send(jobs)
-        })
-
-
-        // Get all jobs
         app.get("/all-jobs", async (req, res) => {
             const jobs = await jobCollections.find().toArray();
             res.send(jobs);
         });
 
-        //get job by email
-        app.get("/my-jobs/:email",async(req,res)=>{
-          const jobs=await jobCollections.find({postedBy:req.params.email}).toArray()
+        app.get("/all-jobs/:id", async (req, res) => {
+            const id = req.params.id;
+            const job = await jobCollections.findOne({ _id: new ObjectId(id) });
+            res.send(job);
+        });
 
-          //console.log(req.params.email)
-          res.send(jobs)
-        })
-        console.log("neha")
+        app.get("/my-jobs/:email", async (req, res) => {
+            const email = req.params.email;
+            const jobs = await jobCollections.find({ postedBy: email }).toArray();
+            res.send(jobs);
+        });
 
-
-
-        //delete a job
-        app.delete("/job/:id",async(req,res)=>{
-          const id=req.params.id;
-          const filter={_id:new ObjectId(id)}
-          const result=await jobCollections.deleteOne(filter)
-          res.send(result)
-        })
-
-        //update a job
-        app.patch("/update-job/:id",async(req,res)=>{
-            const id=req.params.id;
-            const jobdata=req.body;
-            const filter={_id:new ObjectId(id)}
-            const options={upsert:true}
-            const updateDoc={
-                $set:{
-                    ...jobdata
-                },
-
-            };
-            const result=await jobCollections.updateOne(filter,updateDoc,options)
-            res.send(result)
-        })
-
-        
-        // Post a job
         app.post("/post-job", async (req, res) => {
             const body = req.body;
             body.createAt = new Date();
-            console.log(body);
             const result = await jobCollections.insertOne(body);
             if (result.insertedId) {
                 res.status(200).send(result);
             } else {
-                res.status(404).send({
-                    message: "Cannot insert. Try Again.",
-                    status: false
-                });
+                res.status(500).send({ message: "Insertion failed", status: false });
             }
         });
 
-        console.log("Connected to MongoDB successfully.");
+        app.patch("/update-job/:id", async (req, res) => {
+            const id = req.params.id;
+            const jobData = req.body;
+            const result = await jobCollections.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: { ...jobData } },
+                { upsert: true }
+            );
+            res.send(result);
+        });
+
+        app.delete("/job/:id", async (req, res) => {
+            const id = req.params.id;
+            const result = await jobCollections.deleteOne({ _id: new ObjectId(id) });
+            res.send(result);
+        });
+
+        // Catch-all 404 route
+        app.use("*", (req, res) => {
+            res.status(404).json({ message: "Route not found", url: req.originalUrl });
+        });
+
+        // ✅ Start server after all routes are defined
+        app.listen(PORT, () => {
+            console.log(`✅ Server running at http://localhost:${PORT}`);
+        });
+
+        console.log("✅ Connected to MongoDB successfully.");
     } catch (error) {
-        console.error("Failed to connect to MongoDB:", error);
+        console.error("❌ Failed to connect to MongoDB:", error);
     }
 }
 
 connectDB();
-
-app.listen(PORT, () => {
-    console.log(`Server running at port ${PORT}`);
-});
